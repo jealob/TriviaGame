@@ -1,0 +1,70 @@
+/* CSS */
+body {
+    font-family: Roboto Arial, "Helvetica Neue", Helvetica, sans-serif;
+    line-height: 34px;
+    color: #777;
+    background: url("../images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* sticky footer styling */
+
+/* https://css-tricks.com/snippets/css/sticky-footer/ */
+/* Sticky Footer with calc()*/
+.wrapper {
+    min-height: calc(100vh - 70px);
+  }
+  .footer {
+    height: 50px;
+  }
+/* End Sticky Footer */
+/* .game-nav {
+    im
+} */
+.wrapper{
+    width:80%;
+    background: #ffffff;
+    /* background:#8b0000; */
+}
+
+.game-container {
+    width:100%;
+    max-width: 100%;
+    background:#1e90ff;
+}
+
+/* Connect with me row */
+.connect-row {
+    width:300px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+#github:hover {
+    content:url("../images/github_hover.png");
+  }
+  
+  #stackoverflow:hover {
+    content:url("../images/stackoverflow_hover.png");
+  }
+  
+  #linkedin:hover {
+    content:url("../images/linkedin_hover.png");
+  }
+  
+
+footer {
+    padding: 15px 15px;
+    font-size:12px;
+    color:#ccc;
+    text-align:center;
+    background:#483d8b;
+    /* border-top: 8px solid #4aaaa5; */
+    height: 50px;
+}
