@@ -20,26 +20,25 @@ body {
 .wrapper {
     min-height: calc(100vh - 70px);
   }
+
   .footer {
     height: 50px;
   }
 /* End Sticky Footer */
-/* .game-nav {
-    im
-} */
-.wrapper{
+
+.logo {
+    font-family: 'Courier New', Courier, monospace
+}
+
+.wrapper {
     width:100%;
     min-width: 150px;
     background:#483d8b
     /* background:#8b0000; */
 }
 
-#game-header, .game-container{
+#game-header, .game-container {
     color:#ffffff;
-}
-
-.game-container {
-    
 }
 
 /* Connect with me row */
