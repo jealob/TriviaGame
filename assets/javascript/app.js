@@ -97,10 +97,10 @@ $(document).ready(function (){
             $("#quiz-option").append("<br>", btn, "<br>");
         }
         let response;
+        answer =  false;
         unanswered++; // acknowledge that there is no response yet
         $(".options").on("click", function(event){
             event.preventDefault();
-            answer =  false;
             response = $(this).text();
             unanswered--; //Acknowledge there was a response
             if (response === questions[questionsArr[questionsCount]]) {
