@@ -74,7 +74,7 @@ $(document).ready(function (){
     }
 
     function renderButtons(optArr) { //renders the option buttons for the answer
-        $("#quiz-option").empty(); 
+        $("#quiz-option").empty(); //Clears the div
         // let newArr = ["Sao Paulo","Rosario","Lima","Bogota","Montevideo"];
         
         // Get a random number between 0 and 4 to use for randomly placing the correct option
@@ -137,6 +137,7 @@ $(document).ready(function (){
     }
 
     function displayResult() {
+        $("#new-game").show("slow");
         $("#quiz-header").html("<h1>" + "Game Over!!!" + "</h1>");
         $("#quiz-question").html("<h2>" + "This is how you did" + "</h2>");
         $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + ((correct/numOfQuestion)*100) + "%" + "</h3>");
@@ -144,6 +145,7 @@ $(document).ready(function (){
     }
     
     $(".game-container").on("click", "#new-game", function() { // Start new game.
+        $(this).hide();
         console.log("click is executed");
         correct = 0;
         wrong = 0;
