@@ -50,7 +50,8 @@ $(document).ready(function (){
 
      // Start new game.
     $(".game-container").on("click", "#new-game", function() {
-        $(this).hide();
+        // $(this).hide(); //disable instead of hide 
+        $(this).prop("disabled", true);
         correct = 0;
         wrong = 0;
         unanswered = 0;
@@ -164,7 +165,8 @@ $(document).ready(function (){
     }
     // Displays result after game ends 
     function displayResult() {
-        $("#new-game").show("slow");
+        // $("#new-game").show("slow");
+        $("new-game").prop("disabled", true);
         $("#quiz-header").html("<h1>" + "Game Over!!!" + "</h1>");
         $("#quiz-question").html("<h2>" + "This is how you did" + "</h2>");
         $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + Math.round((correct/numOfQuestion)*100) + "%" + "</h3>");
