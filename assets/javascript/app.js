@@ -17,6 +17,7 @@ $(document).ready(function (){
     let countDown;
     let questionsArr;
     let questionsCount;
+    let songPlaying;
     let questions = {
         "What is capital of Argentina?":"Buenos Aires",
         "Who is the prime minister of the United Kingdom?":"Theresa May",
@@ -30,7 +31,6 @@ $(document).ready(function (){
         "Where is Eritrea located?": "East Africa",
         "Which is the longest river on Earth?":"Amazon River",
         "How many continent are in the world?":"Seven",
-
     };
     let optionsObj = {
         0:["Sao Paulo","Rosario","Lima","Bogota","Montevideo"],
@@ -43,13 +43,16 @@ $(document).ready(function (){
         7:["Singapore", "Dominica", "Trinidad and Tobago", "Bahrain", "Tuvalu"],
         8:["Africa", "America", "Europe", "Asia", "Wankada"],
         9:["West Africa", "South America", "Middle East", "Pacific Island", "East Asia"],
-        10:["Nile River", "Congo River", "Mississippi River", "Yangtze River", "Yellow River"],
+        10:["Nile River", "Yangtze River", "Congo River", "Mississippi River", "Yellow River"],
         11:["Five", "Nine", "Eight", "Four","Six"],
         // 12:["Tony Blair", "Justin Trudeau", "David Cameron", "Angela Merkel", "Malcolm Turnbull"],
     };
 
      // Start new game.
     $(".start-game").on("click", "#new-game", function() {
+        if (songPlaying !== undefined) { // Check if a song is playing
+        songPlaying.pause();
+        }
         $(this).hide(); 
         // $(this).prop("disabled", true); //disable instead of hide 
         correct = 0;
@@ -58,7 +61,7 @@ $(document).ready(function (){
         questionsArr= Object.keys(questions); //creates an array-type of object so the size of the object can be determined
         numOfQuestion = questionsArr.length;    // Determine the number of questions
         questionsCount = numOfQuestion - 1;     // -1 ensures that game logic stays within the index of array  
-        keySound("assets/images/song.mp3");
+        songPlaying = gameSong("assets/images/song.mp3");
         displayQuestion();
     });
 
@@ -171,12 +174,13 @@ $(document).ready(function (){
         // $("new-game").prop("disabled", false);
         $("#quiz-header").html("<h1>" + "Game Over!!!" + "</h1>");
         $("#quiz-question").html("<h2>" + "This is how you did" + "</h2>");
-        $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + Math.round((correct/numOfQuestion)*100) + "%" + "</h3>");
+        $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + Math.round((correct/numOfQuestion)*100) + "%" + "<br>" + "Click on New Game to play again." + "</h3>");
     }
 
-    function keySound(s) { // key sounds function 
+    function gameSong(s) { // key sounds function 
         x = document.createElement("audio");
         x.setAttribute("src", s);
         x.play();
+        return x; //return x to songPlaying
     };
 })
