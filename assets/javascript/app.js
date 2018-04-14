@@ -1,4 +1,12 @@
 // JavaScript  document
+
+// *****************************************//
+// This is code for the Trivial Trivia Game app.//
+// For scalability object of strings(which can easily be made to object of objects) are used to hold the question
+// and object of arrays(which can be expanded to object of objects) are used to hold the options.
+// Feel free to download, fork and modify this code to be more robust and fun to play.
+// ***************************************//
+
 // Document Ready
 $(document).ready(function (){
     let second = 1000;
@@ -12,16 +20,16 @@ $(document).ready(function (){
     let questions = {
         "What is capital of Argentina?":"Buenos Aires",
         "Who is the prime minister of the United Kingdom?":"Theresa May",
-        // "Where is Bahrain located?":"Middle East",
-        // "What is the capital Australia?": "Canberra",
-        // "Where is the hottest region in the world?":"Sahara Desert",
-        // "Which is the largest(land and water surface) country in the world?":"Russia",
-        // "Which is the most populous country in the world?":"China",
-        // "Which is the smallest(land and water surface) country in the world?":"Vatican City",
-        // "Which of the following is a country?":"Australia",
-        // "Where is Eritrea located?": "East Africa",
-        // "Which is the longest river on Earth?":"Amazon River",
-        // "How many continent are in the world?":"Seven",
+        "Where is Bahrain located?":"Middle East",
+        "What is the capital Australia?": "Canberra",
+        "Where is the hottest region in the world?":"Sahara Desert",
+        "Which is the largest(land and water surface) country in the world?":"Russia",
+        "Which is the most populous country in the world?":"China",
+        "Which is the smallest(land and water surface) country in the world?":"Vatican City",
+        "Which of the following is a country?":"Australia",
+        "Where is Eritrea located?": "East Africa",
+        "Which is the longest river on Earth?":"Amazon River",
+        "How many continent are in the world?":"Seven",
 
     };
     let optionsObj = {
@@ -40,22 +48,28 @@ $(document).ready(function (){
         // 12:["Tony Blair", "Justin Trudeau", "David Cameron", "Angela Merkel", "Malcolm Turnbull"],
     };
 
-    questionsArr= Object.keys(questions);
-    numOfQuestion = questionsArr.length;
-    questionsCount = numOfQuestion - 1;
+     // Start new game.
+    $(".game-container").on("click", "#new-game", function() {
+        $(this).hide();
+        correct = 0;
+        wrong = 0;
+        unanswered = 0;
+        questionsArr= Object.keys(questions); //creates an array-type of object so the size of the object can be determined
+        numOfQuestion = questionsArr.length;    // Determine the number of questions
+        questionsCount = numOfQuestion - 1;     // -1 ensures that game logic stays within the index of array  
+        displayQuestion();
+    });
+
     // Display the page with the question
     function displayQuestion() {
-        let timer = 5;
-        console.log("Question is executed " + questionsCount);
-        
-        // debugger;
+        let timer = 10; //Resets timer
         $("#quiz-header").html("Time Remaining: " + timer + " seconds.");
         // Displays question using the array object "questionArr"
         $("#quiz-question").html("<h1>" + questionsArr[questionsCount] + "</h1>");
 
-        //argument is an object of arrays, each property name of the object correspond to the 
+        //RenderButtons takes one argument; an object of arrays. Each property name of the object correspond to the 
         // arithmetic position of the question in questions object
-        renderButtons(optionsObj[questionsCount]); 
+        renderButtons(optionsObj[questionsCount]); // Displays the option buttons and take note of options selected
         // Timer for Seconds Remaining 
         countDown = setInterval(function() { 
             if (timer > 1) {
@@ -66,8 +80,7 @@ $(document).ready(function (){
             }
             timer--;
             if (timer < 0) {
-                clearInterval(countDown);
-                timer = 5;
+                clearInterval(countDown); // CLears the setInterval for timer                 
                 setTimeout(displayAnswer, 1000);//Wait one second before displaying answer. (allows 0 second to appear)
             }
         }, 1000);           
@@ -75,19 +88,16 @@ $(document).ready(function (){
 
     function renderButtons(optArr) { //renders the option buttons for the answer
         $("#quiz-option").empty(); //Clears the div
-        // let newArr = ["Sao Paulo","Rosario","Lima","Bogota","Montevideo"];
-        
+
         // Get a random number between 0 and 4 to use for randomly placing the correct option
         let position = Math.floor(Math.random() * 5);
 
+        //For creating buttons
         // for loop to create and fill 5 buttons
-        for (let i = 0; i <optArr.length; i++) {
-            var btn = $("<button>");
-            btn.addClass("options");
-            btn.width(250);
-            btn.attr("data-name", i);
-            // debugger;
-            // This condition places a list options while randomly selecting a location for the correct option.
+        for (let i = 0; i < optArr.length; i++) {
+            let btn = $("<button class = 'options'>");
+            btn.css({"width": "250","color": "#483d8b", "font-weight":"100", "background-color":"#daccdb"} );//decorate
+            // This condition fill in options from a list while randomly selecting a location for the correct option (using position).
             if (i === position) {
                 btn.text(questions[questionsArr[questionsCount]]);
             }
@@ -96,12 +106,22 @@ $(document).ready(function (){
             }
             $("#quiz-option").append("<br>", btn, "<br>");
         }
-        let response;
+
+        //For button decorations
+        // .hover() takes 2 arguments handlerIn and handlerOut for when the mouse enters and leave the area respectively
+        // The $ selector is on the class not the button to apply to all of the buttons  
+        $(".options").hover(function(){
+            $(this).css({"color": "#483d8b", "font-weight":"900","background-color":"#e8d8be"});
+        },function(){
+            $( this ).css({"color": "#483d8b", "font-weight":"100", "background-color":"#daccdb"} );
+        });
+
+        let response;  //Use to get user click option
         answer =  false;
         unanswered++; // acknowledge that there is no response yet
         $(".options").on("click", function(event){
             event.preventDefault();
-            response = $(this).text();
+            response = $(this).text(); //Save the response in the variable response
             unanswered--; //Acknowledge there was a response
             if (response === questions[questionsArr[questionsCount]]) {
                 answer = true;
@@ -111,52 +131,42 @@ $(document).ready(function (){
                 answer = false;
                 wrong++;
             }
+            // This part makes sure that the answer page is display on click of any of the buttons right or wrong
+            clearInterval(countDown); // CLears the setInterval for timer    
+            displayAnswer();          // Display answer.
         });
     }
 
     function displayAnswer() {
-        console.log("answer is executed " + questionsCount);
+        let imageClick = $("<div class= 'image-holder'>"); //create a div to hold image
         let imgPath = "assets/images/" + (questions[questionsArr[questionsCount]]).toLowerCase() + ".jpg";
-        let image = $("<img>").attr("src", imgPath);
+        let image = $("<img>").attr("src", imgPath); //create an image tag
         image.width(400);
+        imageClick.html(image);
+
+        // Condition checks and displays reponse accordingly
         if (answer) {
             $("#quiz-header").html("<h2>" + "Correct!" + "</h2>");
         }
         else {
             $("#quiz-header").html("<h2>" + "Nope!" + "</h2>");
         }       
-        $("#quiz-question").html(image);
-        $("#quiz-option").html("<h3>" + questions[questionsArr[questionsCount]] + " is the right answer" + "</h3>");
-        if (questionsCount > 0){
-            setTimeout(displayQuestion, 5000);
+        $("#quiz-option").html(imageClick);
+        $("#quiz-option").append("<h3>" + questions[questionsArr[questionsCount]] + " was the right answer" + "</h3>");
+        
+        if (questionsCount > 0){ //Checks if the last question has been rendered
+            setTimeout(displayQuestion, 7000);
         } 
         else {
-            setTimeout(displayResult, 5000);
+            setTimeout(displayResult, 7000);
          }
          questionsCount--; 
     }
-
+    // Displays result after game ends 
     function displayResult() {
         $("#new-game").show("slow");
         $("#quiz-header").html("<h1>" + "Game Over!!!" + "</h1>");
         $("#quiz-question").html("<h2>" + "This is how you did" + "</h2>");
-        $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + ((correct/numOfQuestion)*100) + "%" + "</h3>");
-        // debugger;
+        $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + Math.round((correct/numOfQuestion)*100) + "%" + "</h3>");
     }
-    
-    $(".game-container").on("click", "#new-game", function() { // Start new game.
-        $(this).hide();
-        console.log("click is executed");
-        correct = 0;
-        wrong = 0;
-        unanswered = 0;
-        questionsArr= Object.keys(questions);
-        questionsCount = questionsArr.length - 1;
-        displayQuestion();
-    });
 })
-
-
-     // debugger;
-           // let imageDiv = $("<div class = 'image-holder'>");
-        // imageDiv.html(image);
