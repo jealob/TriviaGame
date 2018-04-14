@@ -49,15 +49,16 @@ $(document).ready(function (){
     };
 
      // Start new game.
-    $(".game-container").on("click", "#new-game", function() {
-        // $(this).hide(); //disable instead of hide 
-        $(this).prop("disabled", true);
+    $(".start-game").on("click", "#new-game", function() {
+        $(this).hide(); 
+        // $(this).prop("disabled", true); //disable instead of hide 
         correct = 0;
         wrong = 0;
         unanswered = 0;
         questionsArr= Object.keys(questions); //creates an array-type of object so the size of the object can be determined
         numOfQuestion = questionsArr.length;    // Determine the number of questions
         questionsCount = numOfQuestion - 1;     // -1 ensures that game logic stays within the index of array  
+        keySound("assets/images/song.mp3");
         displayQuestion();
     });
 
@@ -97,7 +98,7 @@ $(document).ready(function (){
         // for loop to create and fill 5 buttons
         for (let i = 0; i < optArr.length; i++) {
             let btn = $("<button class = 'options'>");
-            btn.css({"width": "250","color": "#483d8b", "font-weight":"100", "background-color":"#daccdb"} );//decorate
+            btn.css({"width": "250","color": "#483d8b", "font-size":"30px","font-weight":"100", "background-color":"#daccdb"} );//decorate
             // This condition fill in options from a list while randomly selecting a location for the correct option (using position).
             if (i === position) {
                 btn.text(questions[questionsArr[questionsCount]]);
@@ -105,16 +106,16 @@ $(document).ready(function (){
             else{
                 btn.text(optArr[i]);
             }
-            $("#quiz-option").append("<br>", btn, "<br>");
+            $("#quiz-option").append("<br>", btn);
         }
 
         //For button decorations
         // .hover() takes 2 arguments handlerIn and handlerOut for when the mouse enters and leave the area respectively
         // The $ selector is on the class not the button to apply to all of the buttons  
         $(".options").hover(function(){
-            $(this).css({"color": "#483d8b", "font-weight":"900","background-color":"#e8d8be"});
+            $(this).css({"color": "#483d8b", "font-size":"30px", "font-weight":"900","background-color":"#e8d8be"});
         },function(){
-            $( this ).css({"color": "#483d8b", "font-weight":"100", "background-color":"#daccdb"} );
+            $( this ).css({"color": "#483d8b", "font-size":"30px", "font-weight":"100", "background-color":"#daccdb"} );
         });
 
         let response;  //Use to get user click option
@@ -142,7 +143,7 @@ $(document).ready(function (){
         let imageClick = $("<div class= 'image-holder'>"); //create a div to hold image
         let imgPath = "assets/images/" + (questions[questionsArr[questionsCount]]).toLowerCase() + ".jpg";
         let image = $("<img>").attr("src", imgPath); //create an image tag
-        image.width(400);
+        image.width(350);
         imageClick.html(image);
 
         // Condition checks and displays reponse accordingly
@@ -156,19 +157,26 @@ $(document).ready(function (){
         $("#quiz-option").append("<h3>" + questions[questionsArr[questionsCount]] + " was the right answer" + "</h3>");
         
         if (questionsCount > 0){ //Checks if the last question has been rendered
-            setTimeout(displayQuestion, 7000);
+            setTimeout(displayQuestion, 5000);
         } 
         else {
-            setTimeout(displayResult, 7000);
+            setTimeout(displayResult, 5000);
          }
          questionsCount--; 
     }
+
     // Displays result after game ends 
     function displayResult() {
-        // $("#new-game").show("slow");
-        $("new-game").prop("disabled", true);
+        $("#new-game").show("slow");
+        // $("new-game").prop("disabled", false);
         $("#quiz-header").html("<h1>" + "Game Over!!!" + "</h1>");
         $("#quiz-question").html("<h2>" + "This is how you did" + "</h2>");
         $("#quiz-option").html("<h3>" + "Total Questions: " + numOfQuestion + "<br>" + "Correct Answers: " + correct + "<br>" + "Wrong Answers: " +  wrong + "<br>" + "Unanswered: " + unanswered + "<br>" + "Grade: " + Math.round((correct/numOfQuestion)*100) + "%" + "</h3>");
     }
+
+    function keySound(s) { // key sounds function 
+        x = document.createElement("audio");
+        x.setAttribute("src", s);
+        x.play();
+    };
 })

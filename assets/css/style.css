@@ -41,6 +41,16 @@ body {
     color:#ffffff;
 }
 
+.start-game{
+    position:relative;
+}
+
+.topic{
+    position:absolute;
+    left: 105px;
+    bottom:-20px;
+}
+
 /* Connect with me row */
 .connect-row {
     width:300px;
