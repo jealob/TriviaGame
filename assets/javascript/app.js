@@ -101,7 +101,7 @@ $(document).ready(function (){
         // for loop to create and fill 5 buttons
         for (let i = 0; i < optArr.length; i++) {
             let btn = $("<button class = 'options'>");
-            btn.css({"width": "250","color": "#483d8b", "font-size":"30px","font-weight":"100", "background-color":"#daccdb"} );//decorate
+            btn.css({"width": "250", "color": "#483d8b", "font-size":"30px","font-weight":"100", "background-color":"#daccdb"} );//decorate
             // This condition fill in options from a list while randomly selecting a location for the correct option (using position).
             if (i === position) {
                 btn.text(questions[questionsArr[questionsCount]]);
