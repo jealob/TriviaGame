@@ -38,6 +38,7 @@ body {
 }
 
 #game-header, .game-container {
+    min-width:300px;
     color:#ffffff;
 }
 

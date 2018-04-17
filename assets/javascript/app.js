@@ -32,21 +32,21 @@ $(document).ready(function (){
         "Which is the longest river on Earth?":"Amazon River",
         "How many continent are in the world?":"Seven",
     };
-    let optionsObj = {
-        0:["Sao Paulo","Rosario","Lima","Bogota","Montevideo"],
-        1:["Tony Blair", "Justin Trudeau", "David Cameron", "Angela Merkel", "Malcolm Turnbull"],
-        2:["South East Asia", "Southern Africa", "South America", "Eastern Asia", "Northern Africa"],
-        3:["Sydney", "MelBourne", "Brisbane", "New Zealand", "Albany"],
-        4:["Amazon Forest", "Arabian Desert", "Kalahari Desert", "Congo Basin Forest", "Syrian Desert"],
-        5:["Canada", "China", "USA", "India", "Brazil"],
-        6:["India", "USA", "Nigeria", "Indonesia", "Brazil"],
-        7:["Singapore", "Dominica", "Trinidad and Tobago", "Bahrain", "Tuvalu"],
-        8:["Africa", "America", "Europe", "Asia", "Wankada"],
-        9:["West Africa", "South America", "Middle East", "Pacific Island", "East Asia"],
-        10:["Nile River", "Yangtze River", "Congo River", "Mississippi River", "Yellow River"],
-        11:["Five", "Nine", "Eight", "Four","Six"],
+    let optionsArr = [
+        ["Sao Paulo","Rosario","Lima","Bogota","Montevideo"],
+        ["Tony Blair", "Justin Trudeau", "David Cameron", "Angela Merkel", "Malcolm Turnbull"],
+        ["South East Asia", "Southern Africa", "South America", "Eastern Asia", "Northern Africa"],
+        ["Sydney", "MelBourne", "Brisbane", "New Zealand", "Albany"],
+        ["Amazon Forest", "Arabian Desert", "Kalahari Desert", "Congo Basin Forest", "Syrian Desert"],
+        ["Canada", "China", "USA", "India", "Brazil"],
+        ["India", "USA", "Nigeria", "Indonesia", "Brazil"],
+        ["Singapore", "Dominica", "Trinidad and Tobago", "Bahrain", "Tuvalu"],
+        ["Africa", "America", "Europe", "Asia", "Wankada"],
+        ["West Africa", "South America", "Middle East", "Pacific Island", "East Asia"],
+        ["Nile River", "Yangtze River", "Congo River", "Mississippi River", "Yellow River"],
+        ["Five", "Nine", "Eight", "Four","Six"],
         // 12:["Tony Blair", "Justin Trudeau", "David Cameron", "Angela Merkel", "Malcolm Turnbull"],
-    };
+    ];
 
      // Start new game.
     $(".start-game").on("click", "#new-game", function() {
@@ -74,7 +74,7 @@ $(document).ready(function (){
 
         //RenderButtons takes one argument; an object of arrays. Each property name of the object correspond to the 
         // arithmetic position of the question in questions object
-        renderButtons(optionsObj[questionsCount]); // Displays the option buttons and take note of options selected
+        renderButtons(optionsArr[questionsCount]); // Displays the option buttons and take note of options selected
         // Timer for Seconds Remaining 
         countDown = setInterval(function() { 
             if (timer > 1) {
@@ -118,7 +118,7 @@ $(document).ready(function (){
         $(".options").hover(function(){
             $(this).css({"color": "#483d8b", "font-size":"30px", "font-weight":"900","background-color":"#e8d8be"});
         },function(){
-            $( this ).css({"color": "#483d8b", "font-size":"30px", "font-weight":"100", "background-color":"#daccdb"} );
+            $( this ).css({"color": "#483d8b", "font-size":"30px", "font-weight":"100", "background-color":"#daccdb"});
         });
 
         let response;  //Use to get user click option
@@ -146,7 +146,7 @@ $(document).ready(function (){
         let imageClick = $("<div class= 'image-holder'>"); //create a div to hold image
         let imgPath = "assets/images/" + (questions[questionsArr[questionsCount]]).toLowerCase() + ".jpg";
         let image = $("<img>").attr("src", imgPath); //create an image tag
-        image.width(350);
+        image.width(200);
         imageClick.html(image);
 
         // Condition checks and displays reponse accordingly
