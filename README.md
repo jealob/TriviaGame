@@ -22,3 +22,4 @@ Display the correct answer and whether or not user response was right.
 Calls displayQuestion().
 
 The loop continue until questionCount is equals zero, then displayResult is called which display the users final score.
+App is hosted on github pages on [here](https://jealob.github.io/TriviaGame/).
